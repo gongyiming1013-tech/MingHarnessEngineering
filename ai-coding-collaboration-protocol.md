@@ -1,4 +1,4 @@
-# AI Coding Collaboration Protocol (CLAUDE.md)
+# AI Coding Collaboration Protocol
 
 ## 1. Coding Standards & Design Principles
 
