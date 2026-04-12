@@ -2,16 +2,6 @@
 
 ## 1. Coding Standards & Design Principles
 
-### SOLID Principles
-
-All designs must be decoupled, interface-based, and extensible. Do NOT over-engineer.
-
-- **S — Single Responsibility:** One class, one job. Keep each class and method concise and focused.
-- **O — Open/Closed:** Add new behavior via new classes or modules, not by modifying existing ones.
-- **L — Liskov Substitution:** Subclasses must be drop-in replacements for their parent type.
-- **I — Interface Segregation:** Keep interfaces small and focused. Clients should not depend on methods they do not use.
-- **D — Dependency Inversion:** Depend on abstractions (interfaces/protocols), inject concrete implementations.
-
 ### OOD Best Practices
 
 - **Favor Composition over Inheritance.** Compose behavior from small, focused objects rather than deep inheritance hierarchies.
@@ -33,6 +23,16 @@ Tests are not an afterthought — they are a core design tool. Always follow thi
 3. **Implement to pass the tests:** Write the minimum concrete code needed to satisfy the test suite.
 
 This ensures that every component is testable by design, contracts are explicit and well-understood, and regressions are caught immediately.
+
+### SOLID Principles
+
+All designs must be decoupled, interface-based, and extensible. Do NOT over-engineer.
+
+- **S — Single Responsibility:** One class, one job. Keep each class and method concise and focused.
+- **O — Open/Closed:** Add new behavior via new classes or modules, not by modifying existing ones.
+- **L — Liskov Substitution:** Subclasses must be drop-in replacements for their parent type.
+- **I — Interface Segregation:** Keep interfaces small and focused. Clients should not depend on methods they do not use.
+- **D — Dependency Inversion:** Depend on abstractions (interfaces/protocols), inject concrete implementations.
 
 ### Domain-Driven Naming
 
@@ -80,27 +80,48 @@ Organize every class in a consistent order:
 
 Before writing any implementation code, follow this high-level thinking process:
 
-### Phase A: High-Level Conceptualization
+### Phase A: High-Level Conceptualization & Design
 
-- **Data Structures:** Identify the core data structures and their relationships.
-- **Core Entities:** Define the primary classes and their key responsibilities.
-- **Functionality:** Outline the must-have capabilities to meet the requirements.
-- **Test Dimensions:** Plan the key dimensions for testing (e.g., core functionality, edge cases, error handling, concurrency, performance). No detailed test cases yet — just identify *what* needs to be tested and from which angles.
+Analyze the requirements and produce the **Overview** and **Design** sections of `DEVELOPMENT_PLAN.md`.
 
-Document the results of this phase in `DEVELOPMENT_PLAN.md`.
+1. **High-Level Conceptualization** (maps to the **Overview** section in `DEVELOPMENT_PLAN.md`)
+   - Summarize what this project / feature is and the problem it solves.
+   - State the high-level goals and expected outcomes.
+   - Distill the requirements into a concise description of the task and its general direction.
 
-### Phase B: Execution Roadmap
+2. **Design** (maps to the **Design** section in `DEVELOPMENT_PLAN.md`, organized by version)
+   - Each completed version must include:
+     - **Goal** — one sentence summarizing the version's objective.
+     - **Architecture** — diagram showing component relationships and data flow.
+     - **Design Patterns** — table of patterns used, where, and why.
+     - **Strategy Comparisons** (if applicable) — table of alternatives considered with pros, cons, and verdict.
+     - **Class & Data Structure Reference** — every class, interface, record, and enum with fields, method signatures, and thread-safety annotations.
+     - **Test Plan** — table listing test dimensions, what each dimension covers, and key scenarios. Example dimensions: core functionality, edge cases, error handling, concurrency, performance.
+   - Each planned version must include:
+     - **Goal** — one sentence summarizing the version's objective.
+     - **Strategy Comparison** — placeholder for candidate approaches and trade-offs.
+     - **Design Discussion** — open questions to resolve before implementation.
+     - **Class & Data Structure Changes** — placeholder for new and modified types.
+     - **Test Plan** — placeholder table for test dimensions and scenarios to cover.
 
-Define a versioned roadmap in `DEVELOPMENT_PLAN.md`:
+### Phase B: Roadmap & Implementation Plan
+
+Produce the **Roadmap & Implementation** section of `DEVELOPMENT_PLAN.md`. This is a single unified section organized by version:
 
 - **V0 (MVP):** The minimum viable functional version.
 - **V1+ (Enrichment):** Incremental enhancements (e.g., concurrency, advanced constraints, persistence).
+
+Each version subsection must contain:
+- **Scope** — a short paragraph describing the version's objective and approach in slightly more detail than the Goal in Design.
+- **Checklist** — specific, actionable items covering feature scope and implementation steps. Use `[x]` for completed items, `[ ]` for pending items. Each version should end with a coverage verification item.
+
+After completing Phase A and Phase B, the `DEVELOPMENT_PLAN.md` is ready for review. **STOP and ask the user to review and confirm the plan** before proceeding to Phase C.
 
 ### Phase C: Contract & TDD Setup
 
 1. **Define Stubs:** Create abstract classes / interfaces and method signatures based on the plan.
 2. **Write Test Cases:** Develop comprehensive unit tests based on the API contract.
-3. **User Review:** STOP and ask the user to review the Design & Test suite before proceeding to implementation.
+3. **User Review:** STOP and ask the user to review the test suite before proceeding to implementation.
 
 ---
 
@@ -109,6 +130,9 @@ Define a versioned roadmap in `DEVELOPMENT_PLAN.md`:
 - **Step-by-Step Execution:** Follow the `DEVELOPMENT_PLAN.md` sequentially. Do not skip steps.
 - **Continuous Verification:** Run the test suite and check branch coverage after every meaningful feature implementation.
 - **Iterative Refinement:** Based on test results or user feedback, iterate on the code until it meets the quality bar.
+- **Keep `DEVELOPMENT_PLAN.md` in sync:** After each change is merged to production, update the corresponding version's:
+  1. **Design** section — reflect the actual architecture, classes, and patterns as implemented (not as originally planned).
+  2. **Roadmap & Implementation** checklist — mark completed items `[x]` and update scope if it changed during implementation.
 
 ---
 
